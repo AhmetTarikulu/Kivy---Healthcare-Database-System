@@ -1,0 +1,606 @@
+#:import utils kivy.utils
+<RoundedButton@Button>
+    font_name:"Montserrat"
+    background_color: (0,0,0,0)
+    background_normal:""
+    background_normal:""
+    canvas.before:
+        Color:
+            rgba: (11/255,68/255,145/255,255/255)
+        RoundedRectangle:
+            size:self.size
+            pos:self.pos
+            radius:[20]
+<PatientButton@Button>
+    font_name:"Montserrat"
+    id:mybutton
+    pos_hint:{"center_y":0.5,"center_x":0.5}
+    size_hint: (0.95, 0.9)
+    background_color: (1,1,1,1)
+    background_normal:""
+    color:0,0,0,1
+    canvas.before:
+        Color:
+            rgba:(0,0,0,1)
+        Line:
+            width: 1.1
+            rectangle: self.x, self.y, self.width,self.height
+    on_release:
+        app.root.current = "info"
+<DoctorButton@Button>:
+    font_name:"Montserrat"
+    pos_hint:{"center_y":0.5,"center_x":0.5}
+    size_hint: (0.95, 0.9)
+    background_color: (1,1,1,1)
+    background_normal:""
+    color:0,0,0,1
+    canvas.before:
+        Color:
+            rgba:(0,0,0,1)
+        Line:
+            width: 1.1
+            rectangle: self.x, self.y, self.width,self.height
+    on_release:
+        app.root.current = "doctorinfo"
+<PatientDelete@Button>
+    size_hint:0.05,0.5
+    background_color:(0,0,0,0)
+    background_normal:""
+    pos_hint:{"center_y":0.5,"center_x":0.95}
+    Image:
+        source:app.resource_path(relative_path="trash.png")
+        size:self.parent.size
+        center_x: self.parent.center_x
+        center_y: self.parent.center_y
+<appdelete@Button>
+    size_hint:0.5,0.5
+    background_color:(0,0,0,0)
+    background_normal:""
+    pos_hint:{"center_y":0.5,"center_x":0.075}
+    Image:
+        source:app.resource_path(relative_path="trash.png")
+        size:self.parent.size
+        center_x: self.parent.center_x
+        center_y: self.parent.center_y
+<meddelete@Button>
+    size_hint:0.5,0.5
+    background_color:(0,0,0,0)
+    background_normal:""
+    pos_hint:{"center_y":0.5,"center_x":0.075}
+    Image:
+        source:app.resource_path(relative_path="trash.png")
+        size:self.parent.size
+        center_x: self.parent.center_x
+        center_y: self.parent.center_y
+<paydelete@Button>
+    size_hint:0.5,0.5
+    background_color:(0,0,0,0)
+    background_normal:""
+    pos_hint:{"center_y":0.5,"center_x":0.075}
+    Image:
+        source:app.resource_path(relative_path="trash.png")
+        size:self.parent.size
+        center_x: self.parent.center_x
+        center_y: self.parent.center_y
+
+<Errorpop>
+    Label:
+        text:"Please re-evaulate your responses for any errors"
+        pos_hint:{"center_y":0.5,"center_x":0.5}
+<loginscreen>
+    canvas.before:
+        Color:
+            rgba: (230/255,230/255,250/255,255/255)
+        Rectangle:
+            size:self.size
+            pos:self.pos
+    username: username
+    password: password
+    FloatLayout:
+        Image:
+            size_hint: (None, None)
+            pos_hint:{'center_y': 0.8, 'center_x': 0.5}
+            width:dp(300)
+            height:dp(63)
+            source: app.resource_path(relative_path="logo.png")
+        TextInput:
+            size_hint: (None, None)
+            hint_text:"Username"
+            font_size:20
+            pos_hint:{'center_y': 0.55, 'center_x': 0.5}
+            height: dp(40)
+            width:200
+            id:username
+            multiline: False
+        TextInput:
+            size_hint: (None, None)
+            hint_text:"Password"
+            font_size:20
+            pos_hint:{'center_y': 0.45, 'center_x': 0.5}
+            height: 40
+            width: 200
+            id:password
+            password: True
+            multiline: False
+        RoundedButton:
+            pos_hint:{'center_y': 0.3, 'center_x': 0.5}
+            size_hint: (None, None)
+            text: "Sign in"
+            font_size:20
+            height: 50
+            width: 100
+            markup: True
+            on_press:
+                app.root.current = "patient" if root.check() else "login"
+<patientscreen>
+    canvas.before:
+        Color:
+            rgba: (230/255,230/255,250/255,255/255)
+        Rectangle:
+            size:self.size
+            pos:self.pos
+    patientgrid:patientgrid
+    newdob:newdob
+    newname:newname
+    searchpatient:searchpatient
+    showdoctor:showdoctor
+    new_patient_button:new_patient_button
+    FloatLayout:
+        Button:
+            pos_hint:{"center_x":0.05,"center_y":0.95}
+            size_hint: 0.05, 0.05
+            background_color:(0,0,0,0)
+            background_normal:""
+            on_press: app.root.current = "login"
+            Image:
+                source:app.resource_path(relative_path="back.png")
+                size:self.parent.size
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+        TextInput:
+            pos_hint:{"x":0.1,"center_y":0.95}
+            size_hint: 0.8, 0.05
+            id:searchpatient
+            hint_text:"Search"
+            multiline:False
+        Button:
+            pos_hint:{"center_x":0.95,"center_y":0.95}
+            size_hint: 0.05, 0.05
+            background_color:(0,0,0,0)
+            background_normal:""
+            on_press: root.search()
+            Image:
+                source:app.resource_path(relative_path="search.png")
+                size:self.parent.size
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+        ScrollView:
+            pos_hint:{"top":0.9}
+            size_hint: 1, 0.8
+            GridLayout:
+                size_hint_y: None
+                height: self.minimum_height
+                row_default_height: 60
+                id:patientgrid
+                cols:1
+        Label:
+            font_name: "Montserrat"
+            pos_hint:{"center_y":0.05, "center_x": 0.08}
+            text: "Show\nDoctors:"
+            color:0,0,0,1
+        Switch:
+            id:showdoctor
+            pos_hint:{"center_y":0.05, "center_x": 0.2}
+            size_hint:0.1,0.06
+            on_active:root.show_doctors()
+        TextInput:
+            pos_hint:{"center_y":0.05, "center_x": 0.4}
+            size_hint: 0.25, 0.06
+            id:newname
+            hint_text:"Name"
+            multiline: False
+        TextInput:
+            pos_hint:{"center_y":0.05, "center_x": 0.68}
+            size_hint: 0.25, 0.06
+            id:newdob
+            hint_text:"Date of birth (DD/MM/YYYY)"
+            multiline: False
+        RoundedButton:
+            pos_hint:{"center_y":0.05, "center_x": 0.9}
+            size_hint: 0.15, 0.06
+            text: "Register"
+            id:new_patient_button
+            on_press: root.newpatient()
+<patientinfo>
+    canvas.before:
+        Color:
+            rgba: (230/255,230/255,250/255,255/255)
+        Rectangle:
+            size:self.size
+            pos:self.pos
+    agrid:agrid
+    mgrid:mgrid
+    pgrid:pgrid
+
+    adate:adate
+    atime:atime
+    adoctor:adoctor
+    anote:anote
+
+    mdate:mdate
+    mmedication:mmedication
+    mdoctor:mdoctor
+
+    pdate:pdate
+    pdoctor:pdoctor
+    pvalue:pvalue
+    pnote:pnote
+
+    totalbalance:totalbalance
+
+    meditextinput:meditextinput
+    savedlabel:savedlabel
+
+    namelabel:namelabel
+    doblabel:doblabel
+    applabel:applabel
+    ScrollView:
+        size:self.size
+        GridLayout:
+            size_hint_y: None
+            row_default_height: 450
+            height: self.minimum_height
+            cols:2
+            FloatLayout:
+                canvas.before:
+                    Color:
+                        rgba: (1,1,1,1)
+                    Rectangle:
+                        size:(self.width-dp(15),self.height-dp(15))
+                        pos:(self.pos[0]+dp(7.5),self.pos[1]+dp(7.5))
+                    Color:
+                        rgb: (0,0,0,1)
+                    Line:
+                        width: 1
+                        rectangle: self.pos[0]+dp(7.5), self.pos[1]+dp(7.5), self.width-dp(15),self.height-dp(15)
+                    Color:
+                        rgb: utils.get_color_from_hex("#F6F8E8")
+                    RoundedRectangle:
+                        size: (self.width-dp(40),self.height-dp(95))
+                        pos: (self.pos[0]+dp(20), self.pos[1]+dp(27))
+                        radius:[5]
+                Label:
+                    pos_hint:{"center_y":0.91, "center_x":0.55}
+                    text: "Patient Profile"
+                    font_size:40
+                    font_name:"Cabal"
+                    color:(0,0,0,1)
+                Image:
+                    pos_hint:{"x":0.09, "top":0.8}
+                    size_hint:0.25,0.25
+                    source:app.resource_path(relative_path="defaultpatient.jpg")
+                Button:
+                    font_name:"Montserrat"
+                    pos_hint:{"center_y":0.91,"center_x":0.12}
+                    size_hint: 0.08, 0.08
+                    background_color:(0,0,0,0)
+                    background_normal:""
+                    on_press: app.root.current = "patient"
+                    Image:
+                        source:app.resource_path(relative_path="back.png")
+                        size:self.parent.size
+                        center_x: self.parent.center_x
+                        center_y: self.parent.center_y
+                Label:
+                    pos_hint:{"center_x":0.6,"center_y":0.10}
+                    text: "Saved!"
+                    id:savedlabel
+                    font_size:15
+                    font_name:"Montserrat"
+                    color:(0,0,0,1)
+                Button:
+                    pos_hint:{"center_x":0.3,"center_y":0.35}
+                    size_hint: 0.4, 0.06
+                    text:"Edit Patient Profile"
+                    font_name:"Montserrat"
+                    background_color: (0,0,0,0)
+                    background_normal:""
+                    canvas.before:
+                        Color:
+                            rgba: (11/255,68/255,145/255,255/255)
+                        RoundedRectangle:
+                            size:self.size
+                            pos:self.pos
+                            radius:[12]
+                Button:
+                    pos_hint:{"center_x":0.8,"center_y":0.10}
+                    size_hint: 0.15, 0.06
+                    text: "Save"
+                    font_name:"Montserrat"
+                    background_color: (0,0,0,0)
+                    background_normal:""
+                    on_press: root.meditext()
+                    canvas.before:
+                        Color:
+                            rgba: (11/255,68/255,145/255,255/255)
+                        RoundedRectangle:
+                            size:self.size
+                            pos:self.pos
+                            radius:[12]
+                Label:
+                    font_name:"Montserrat"
+                    color:(0,0,0,1)
+                    id:namelabel
+                    font_size:20
+                    size_hint:(None,None)
+                    pos_hint:{"center_x":0.65, "center_y": 0.8}
+                Label:
+                    font_name:"Montserrat"
+                    id:doblabel
+                    color:(0,0,0,1)
+                    size_hint:(None,None)
+                    pos_hint:{"center_x":0.65, "center_y": 0.7}
+                Label:
+                    font_name:"Montserrat"
+                    id:applabel
+                    color:(0,0,0,1)
+                    size_hint:(None,None)
+                    pos_hint:{"center_x":0.65, "center_y": 0.6}
+                TextInput:
+                    hint_text: "Medical Information..."
+                    pos_hint:{"top":0.30, "center_x": 0.5}
+                    size_hint:0.85,0.16
+                    multiline:True
+                    on_text: root.unsavedlabel()
+                    id:meditextinput
+            FloatLayout:
+                canvas.before:
+                    Color:
+                        rgba: (1,1,1,1)
+                    Rectangle:
+                        size:(self.width-dp(15),self.height-dp(15))
+                        pos:(self.pos[0]+dp(7.5),self.pos[1]+dp(7.5))
+                    Color:
+                        rgb: (0,0,0,1)
+                    Line:
+                        width: 1
+                        rectangle: self.pos[0]+dp(7.5), self.pos[1]+dp(7.5), self.width-dp(15),self.height-dp(15)
+                Label:
+                    pos_hint:{"center_y":0.91, "center_x":0.5}
+                    text: "Appointments"
+                    font_size:40
+                    font_name:"Cabal"
+                    color:(0,0,0,1)
+                ScrollView:
+                    canvas.before:
+                        Color:
+                            rgb: utils.get_color_from_hex("#F6F8E8")
+                        RoundedRectangle:
+                            size: self.size
+                            pos: self.pos
+                            radius:[5]
+                    pos_hint:{"top":0.85, "center_x":0.5}
+                    size_hint: 0.9, 0.6
+                    GridLayout:
+                        size_hint_y: None
+                        height: self.minimum_height
+                        row_default_height: 60
+                        cols:1
+                        id:agrid
+                TextInput:
+                    pos_hint:{"center_y":0.18, "x": 0.05}
+                    size_hint: 0.3, 0.08
+                    id:adate
+                    hint_text:"Date (DD/MM/YYYY)"
+                    multiline: False
+                TextInput:
+                    pos_hint:{"center_y":0.18, "center_x": 0.5}
+                    size_hint: 0.3, 0.08
+                    id:atime
+                    hint_text:"Time (HH:MM)"
+                    multiline: False
+                Spinner:
+                    pos_hint:{"center_y":0.18, "right": 0.95}
+                    size_hint: 0.3, 0.08
+                    id:adoctor
+                    text:"Doctor"
+                    multiline: False
+                TextInput:
+                    pos_hint:{"center_y":0.1, "x": 0.05}
+                    size_hint: 0.6, 0.08
+                    id:anote
+                    hint_text:"Notes"
+                    multiline: True
+                Button:
+                    font_name:"Montserrat"
+                    pos_hint:{"center_y":0.1, "right": 0.95}
+                    size_hint: 0.3, 0.08
+                    text: "Add New"
+                    background_color:(11/255,68/255,145/255,255/255)
+                    background_normal:""
+                    on_press:
+                        root.newappointment()
+            FloatLayout:
+                canvas.before:
+                    Color:
+                        rgba: (1,1,1,1)
+                    Rectangle:
+                        size:(self.width-dp(15),self.height-dp(15))
+                        pos:(self.pos[0]+dp(7.5),self.pos[1]+dp(7.5))
+                    Color:
+                        rgb: (0,0,0,1)
+                    Line:
+                        width: 1
+                        rectangle: self.pos[0]+dp(7.5), self.pos[1]+dp(7.5), self.width-dp(15),self.height-dp(15)
+                Label:
+                    font_name:"Cabal"
+                    pos_hint:{"center_y":0.91, "center_x":0.5}
+                    text: "Medications"
+                    font_size:40
+                    color:(0,0,0,1)
+                ScrollView:
+                    canvas.before:
+                        Color:
+                            rgb: utils.get_color_from_hex("#F6F8E8")
+                        RoundedRectangle:
+                            size: self.size
+                            pos: self.pos
+                            radius:[5]
+                    pos_hint:{"top":0.85, "center_x":0.5}
+                    size_hint: 0.9, 0.6
+                    GridLayout:
+                        size_hint_y: None
+                        height: self.minimum_height
+                        row_default_height: 60
+                        cols:1
+                        id:mgrid
+                TextInput:
+                    pos_hint:{"center_y":0.18, "x": 0.05}
+                    size_hint: 0.45, 0.08
+                    id:mdate
+                    hint_text:"Date (DD/MM/YYYY)"
+                    multiline: False
+                Spinner:
+                    pos_hint:{"center_y":0.18, "right": 0.95}
+                    size_hint: 0.45, 0.08
+                    id:mdoctor
+                    text:"Doctor"
+                    multiline: False
+                TextInput:
+                    pos_hint:{"center_y":0.1, "x": 0.05}
+                    size_hint: 0.6, 0.08
+                    id:mmedication
+                    hint_text:"Medication"
+                    multiline: False
+                Button:
+                    font_name:"Montserrat"
+                    pos_hint:{"center_y":0.1, "right": 0.95}
+                    size_hint: 0.3, 0.08
+                    background_color:(11/255,68/255,145/255,255/255)
+                    background_normal:""
+                    text: "Add New"
+                    on_press:
+                        root.newmedication()
+            FloatLayout:
+                canvas.before:
+                    Color:
+                        rgba: (1,1,1,1)
+                    Rectangle:
+                        size:(self.width-dp(15),self.height-dp(15))
+                        pos:(self.pos[0]+dp(7.5),self.pos[1]+dp(7.5))
+                    Color:
+                        rgb: (0,0,0,1)
+                    Line:
+                        width: 1
+                        rectangle: self.pos[0]+dp(7.5), self.pos[1]+dp(7.5), self.width-dp(15),self.height-dp(15)
+                Label:
+                    font_name:"Cabal"
+                    pos_hint:{"center_y":0.91, "center_x":0.5}
+                    text: "Payments ()"
+                    id:totalbalance
+                    font_size:40
+                    color:(0,0,0,1)
+                ScrollView:
+                    canvas.before:
+                        Color:
+                            rgb: utils.get_color_from_hex("#F6F8E8")
+                        RoundedRectangle:
+                            size: self.size
+                            pos: self.pos
+                            radius:[5]
+                    pos_hint:{"top":0.85, "center_x":0.5}
+                    size_hint: 0.9, 0.6
+                    GridLayout:
+                        size_hint_y: None
+                        height: self.minimum_height
+                        row_default_height: 60
+                        cols:1
+                        id:pgrid
+                TextInput:
+                    pos_hint:{"center_y":0.18, "x": 0.05}
+                    size_hint: 0.3, 0.08
+                    id:pdate
+                    hint_text:"Date (DD/MM/YYYY)"
+                    multiline: False
+                TextInput:
+                    pos_hint:{"center_y":0.18, "center_x": 0.5}
+                    size_hint: 0.3, 0.08
+                    id:pvalue
+                    hint_text:"Value (+/-)"
+                    multiline: False
+                Spinner:
+                    pos_hint:{"center_y":0.18, "right": 0.95}
+                    size_hint: 0.3, 0.08
+                    id:pdoctor
+                    text:"Doctor"
+                    multiline: False
+                TextInput:
+                    pos_hint:{"center_y":0.1, "x": 0.05}
+                    size_hint: 0.6, 0.08
+                    id:pnote
+                    hint_text:"Notes"
+                    multiline: True
+                Button:
+                    font_name:"Montserrat"
+                    pos_hint:{"center_y":0.1, "right": 0.95}
+                    size_hint: 0.3, 0.08
+                    text: "Add Payment"
+                    background_color:(11/255,68/255,145/255,255/255)
+                    background_normal:""
+                    on_press:
+                        root.newbalance()
+<doctorinfo>
+    patientgrid:patientgrid
+    doctorlabel:doctorlabel
+    canvas.before:
+        Color:
+            rgba: (230/255,230/255,250/255,255/255)
+        Rectangle:
+            size:self.size
+            pos:self.pos
+    FloatLayout:
+        canvas.before:
+            Color:
+                rgba: (1,1,1,1)
+            Rectangle:
+                size:(self.width-dp(15),self.height-dp(15))
+                pos:(self.pos[0]+dp(7.5),self.pos[1]+dp(7.5))
+            Color:
+                rgb: (0,0,0,1)
+            Line:
+                width: 1
+                rectangle: self.pos[0]+dp(7.5), self.pos[1]+dp(7.5), self.width-dp(15),self.height-dp(15)
+        Button:
+            font_name:"Montserrat"
+            pos_hint:{"center_y":0.94,"center_x":0.09}
+            size_hint: 0.07, 0.07
+            background_color:(0,0,0,0)
+            background_normal:""
+            on_press: app.root.current = "patient"
+            Image:
+                source:app.resource_path(relative_path="back.png")
+                size:self.parent.size
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+        Label:
+            pos_hint:{"center_y":0.94, "center_x":0.5}
+            font_size:40
+            id:doctorlabel
+            font_name:"Cabal"
+            color:(0,0,0,1)
+        ScrollView:
+            canvas.before:
+                Color:
+                    rgb: utils.get_color_from_hex("#F6F8E8")
+                RoundedRectangle:
+                    size: self.size
+                    pos: self.pos
+                    radius:[5]
+            pos_hint:{"top":0.9, "center_x":0.5}
+            size_hint: 0.96, 0.85
+            GridLayout:
+                size_hint_y: None
+                height: self.minimum_height
+                row_default_height: 60
+                cols:1
+                id:patientgrid
