@@ -21,5 +21,6 @@ Sofware requires a MySQL server database from a hosting company such as AWS. Fol
 4.  In "appointments" create 5 columns named: "PatientNo", "Date", "Time", "Doctor" and "Notes"
 5.  In "medication" create 4 columns named: "PatientNo", "Date", "Medication" and  "Doctor" 
 6.  In "balance" create 6 columns named: "PatientNo", "Date", "Value", "Doctor", "Notes" and "ID"
+7.  Update "main.py" with databaseurl = {yourdatabaseurl}
 
 <h3>Note: It is highly likely that the software will not work for your purpose without significant modifications, as it was made for a specific company's needs. It was never meant for publication.<br><br>If you need support please create a case and I'll be in touch.</h3>
